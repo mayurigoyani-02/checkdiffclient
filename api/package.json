@@ -7,10 +7,12 @@
     "start": "node src/index.js"
   },
   "dependencies": {
+    "@mayurigoyani-02/checkdiff-e2e": "github:mayurigoyani-02/checkdiff",
     "cors": "^2.8.5",
     "express": "^4.19.2"
   },
   "devDependencies": {
-    "checkdiff-e2e": "github:mayurigoyani-02/checkdiff"
+    "@playwright/test": "^1.64.1",
+    "checkdiff-e2e": "file:../../CheckDiff"
   }
 }

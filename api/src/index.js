@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const { checkdiff } = require('checkdiff-e2e');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -25,10 +26,10 @@ app.post('/api/payment/create', (req, res) => {
 });
 
 app.get('/api/products', (req, res) => {
-  res.json({ products: [{ id: '123', name: 'Test Product 1', price: 100 }] });
+  res.json({ products: [{ id: '123', name: 'Test Product 2', price: 100 }] });
 });
 
-app.get('/api/products/:id', (req, res) => {
+app.get('/api/products1/:id', (req, res) => {
   res.json({ id: req.params.id, name: 'Product ' + req.params.id, price: 100 });
 });
 
@@ -36,4 +37,5 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`API Agent running on http://localhost:${PORT}`);
   console.log(`Health: http://localhost:${PORT}/health`);
+   checkdiff.notifyService({ port: 4000, baseUrl: 'http://localhost:4000' });
 });
