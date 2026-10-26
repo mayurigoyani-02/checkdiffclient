@@ -19,13 +19,13 @@ app.post('/api/auth/login', (req, res) => {
   }
 });
 
-app.post('/api/payment/create', (req, res) => {
+app.post('/api/payment/create1', (req, res) => {
   const { amount } = req.body;
   console.log('[API] Payment create:', amount);
   res.json({ clientSecret: 'secret_' + Date.now(), amount });
 });
 
-app.get('/api/products', (req, res) => {
+app.get('/api/productss', (req, res) => {
   res.json({ products: [{ id: '123', name: 'Test Product 2', price: 100 }] });
 });
 
@@ -37,5 +37,6 @@ const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   console.log(`API Agent running on http://localhost:${PORT}`);
   console.log(`Health: http://localhost:${PORT}/health`);
-   checkdiff.notifyService({ port: 4000, baseUrl: 'http://localhost:4000' });
+   checkdiff.PORT = PORT;
+   checkdiff.baseUrl = 'http://localhost:' + PORT;
 });
