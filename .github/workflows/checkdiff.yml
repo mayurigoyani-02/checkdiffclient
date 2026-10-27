@@ -1,4 +1,4 @@
-name: CheckDiff — PR gate + report
+name: CheckDiff ï¿½ PR gate + report
 
 on:
   pull_request:
@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: mayurigoyani-02/CheckDiff@main
+      - uses: mayurigoyani-02/checkdiff@main
         with:
           pr: ${{ inputs.pr || github.event.pull_request.html_url }}
           workItem: ${{ inputs.workItem || github.event.pull_request.body }}
