@@ -1,0 +1,44 @@
+name: CheckDiff � PR gate + report
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: 'PR link or number'
+        required: false
+        type: string
+      workItem:
+        description: 'Work-item link: GitHub Issue URL/#123, ADO URL/id, or Jira key PROJ-123'
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  checkdiff:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: mayurigoyani-02/checkdiff@main
+        with:
+          pr: ${{ inputs.pr || github.event.pull_request.html_url }}
+          workItem: ${{ inputs.workItem || github.event.pull_request.body }}
+          requireWorkItem: 'true'
+          publishToWorkItem: 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ADO_PAT: ${{ secrets.ADO_PAT }}
+          ADO_ORG: ${{ secrets.ADO_ORG }}
+          ADO_PROJECT: ${{ secrets.ADO_PROJECT }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
